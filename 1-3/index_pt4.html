@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Matching Game</title>
+	<style type="text/css">
+		img {
+			position: absolute;
+		}
+		div {
+			position: absolute;
+			width: 500px;
+			height: 500px;
+		}
+		#rightSide {
+			left: 500px;
+			border-left: 1px solid black;
+		}
+	</style>
+</head>
+<body onload="generateFaces()">
+	<h1>Matching Game</h1>
+	<p>Click on the extra smiling face on the left side of the screen.</p>
+	<div id="leftSide"></div>
+	<div id="rightSide"></div>
+
+	<script type="text/javascript">
+		var numberOfFaces = 5;
+		var theLeftSide = document.getElementById("leftSide");
+		var theRightSide = document.getElementById("rightSide");
+		var theBody = document.getElementsByTagName("body")[0];
+
+		function generateFaces() {
+			for (i = 0; i < numberOfFaces; i++) {
+				var newImg = document.createElement("img");
+				newImg.src = "smile.png";
+				// set top and left position to be random nbr 0-400
+				newImg.style.top = Math.floor(Math.random() * 401) + "px";
+				newImg.style.left = Math.floor(Math.random() * 401) + "px";
+				// add the new element to the left div
+				theLeftSide.appendChild(newImg);
+			}
+			leftSideImages = theLeftSide.cloneNode(true);
+			leftSideImages.removeChild(leftSideImages.lastChild);
+			theRightSide.appendChild(leftSideImages);
+
+			// add event handler to last img in left div
+			theLeftSide.lastChild.onclick = function nextlevel(event) {
+				// stop the event from being applied to other elements in the page
+				event.stopPropagation();
+
+				// delete all of the faces on both sides
+				while (theLeftSide.firstChild) {
+					theLeftSide.removeChild(theLeftSide.firstChild)
+				}
+				while (theRightSide.firstChild) {
+					theRightSide.removeChild(theRightSide.firstChild)
+				}
+
+				// increase nbr of faces and regenerate them
+				numberOfFaces += 5;
+				generateFaces();
+			};
+
+			// add event handler to the body for wrong clicks
+			theBody.onclick = function gameOver() {
+				alert("Game Over!");
+				// turn off both event handlers
+				theBody.onclick = null;
+				theLeftSide.lastChild.onclick = null
+			};
+		}
+	</script>
+</body>
+</html>
