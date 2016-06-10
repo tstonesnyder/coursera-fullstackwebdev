@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dating Website Pt 3</title>
+	<style>
+	fieldset {background:lightyellow; border:10px solid yellow; 
+		margin-bottom:10px; width:720px}
+
+	label {width:180px; display:inline-block; text-align:right; vertical-align:top}
+
+	/* Labels immediately following checkboxes or radio buttons. */
+	input[type="checkbox"] + label, input[type="radio"] + label {width:auto}
+
+	.redblock {background:darkred; color:white; 
+		text-align:center; vertical-align:top; width:50px; padding:1px}
+
+	.purpleblock {background:darkmagenta; color:white; 
+		text-align:center; vertical-align:top; width:50px; padding:1px}
+
+	textarea {width:360px; height:50px}
+
+	/* On hover, enlarge the following: labels, input types, select controls (dropdowns), 
+	and textarea controls. This seems to only affect input types that contain text,
+	(so NOT the color or range input types, but DOES affect range in Firefox). 
+	But DON'T enlarge text in red/purple boxes (gets cut off and looks bad),
+	and these were not enlarged in the video */
+	label:not([class="redblock"]):not([class="purpleblock"]):hover, input:hover, select:hover, textarea:hover {font-size:25px}
+	</style>
+</head>
+<body>
+	<h1>Please Enter Your Details For Our Dating Website!</h1>
+
+	<form method="post" enctype="multipart/form-data" action="https://ihome.ust.hk/~rossiter/cgi-bin/show_everything.php">
+		<fieldset>
+			<legend>Your Face</legend>
+			<label for="imgFile">Your image:</label>
+			<input type="file" name="imgFile" id="imgFile" required><br>
+
+			<label for="preview">Image preview:</label>
+			<img src="" id="preview" alt="">
+		</fieldset><br>
+
+		<fieldset>
+			<legend>Your General Details</legend>
+			<label for="fullname">Name:</label>
+			<input type="text" placeholder="Your full name" name="fullname" id="fullname" required><br>
+
+			<label for="gender_m">Gender:</label>
+			<input type="radio" value="male" name="gender" id="gender_m" required>
+			<label for="gender_m">Male</label>
+			<input type="radio" value="female" name="gender" id="gender_f" required>
+			<label for="gender_f">Female</label><br>
+
+			<label for="age">Age:</label>
+			<input type="number" value="18" min="0" max="120" step="1" name="age" id="age" required><br>
+
+			<!-- date input not supported in Firefox or IE? -->
+			<label for="bday">Date of birth:</label>
+			<input type="date" name="bday" id="bday"><br>
+
+			<!-- color input not supported in IE 11? -->
+			<label for="favcolor">Favorite color:</label>
+			<input type="color" name="favcolor" id="favcolor"><br>
+
+			<label for="country">Which country:</label>
+			<select name="country" id="country">
+				<option value="none"></option>
+				<option value="usa">U.S.A.</option>
+				<option value="can">Canada</option>
+				<option value="mex">Mexico</option>
+				<option value="fra">France</option>
+				<option value="eng">England</option>
+			</select>
+		</fieldset><br>
+
+		<fieldset>
+			<legend>Your Indicators</legend>
+			<label for="height">Height:</label>
+			<label for="height" class="redblock">Short</label>
+			<input type="range" min="0" max="100" name="height" id="height">
+			<label for="height" class="purpleblock">Tall</label><br>
+
+			<label for="salary">Salary:</label>
+			<label for="salary" class="redblock">Poor</label>
+			<input type="range" min="0" max="100" name="salary" id="salary">
+			<label for="salary" class="purpleblock">Rich</label>
+		</fieldset><br>
+
+		<fieldset>
+			<legend>Your Contact Information</legend>
+			<label for="email">Email:</label>
+			<input type="email" name="email" id="email" required><br>
+
+			<label for="mobile">Mobile:</label>
+			<input type="tel" name="mobile" id="mobile"><br>
+
+			<label for="address">Address:</label>
+			<textarea name="address" id="address"></textarea><br>
+
+			<label for="contact_e">Method to contact you:</label>
+			<input type="checkbox" value="email" name="contact" id="contact_e">
+			<label for="contact_e">Email</label>
+			<input type="checkbox" value="whatsapp" name="contact" id="contact_w">
+			<label for="contact_w">Whatsapp</label>
+			<input type="checkbox" value="chat" name="contact" id="contact_ch">
+			<label for="contact_ch">In-app chat</label>
+		</fieldset><br>
+
+		<input type="submit" value="Submit!"><br>
+	</form>
+	<script src="https://www.cse.ust.hk/~rossiter/dating_web_site.js"></script>
+</body>
+</html>
