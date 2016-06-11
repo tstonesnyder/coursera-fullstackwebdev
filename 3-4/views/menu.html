@@ -1,0 +1,56 @@
+<div class="container">
+    <!-- Specify a controller for this section, so can use its data. -->
+    <div class="row row-content" ng-controller="MenuController">
+        <!-- Show the menu data only when it is ready. Otherwise show status/error msg. -->
+        <div class="col-xs-12" ng-if="!showMenu">
+            <h3>{{message}}</h3>
+        </div>
+        <div class="col-xs-12" ng-if="showMenu">
+            <!-- Button for show/hide for dish details -->
+            <button ng-click="toggleDetails()" class="btn btn-xs btn-primary pull-right" type="button">
+                {{showDetails ? 'Hide Details':'Show Details'}}
+            </button>  
+
+            <!-- Bootstrap horizontal tabs control -->
+            <ul class="nav nav-tabs" role="tablist">
+                <!-- Apply the "active" class IF the isSelected() function returns true. -->
+                <li role="presentation" ng-class="{active:isSelected(1)}">
+                    <!-- Run the select() function in the menuController when a tab is clicked. -->
+                    <a ng-click="select(1)" aria-controls="all menu" role="tab">The Menu</a>
+                </li>
+                <li role="presentation" ng-class="{active:isSelected(2)}">
+                    <a ng-click="select(2)" aria-controls="appetizers" role="tab">Appetizers</a>
+                </li>
+                <li role="presentation" ng-class="{active:isSelected(3)}">
+                    <a ng-click="select(3)" aria-controls="mains" role="tab">Mains</a>
+                </li>
+                <li role="presentation" ng-class="{active:isSelected(4)}">
+                    <a ng-click="select(4)" aria-controls="desserts" role="tab">Desserts</a>
+                </li>
+            </ul>
+            <!-- This is what is shown inside (below) the tab. -->
+            <div class="tab-content">
+                <ul class="media-list tab-pane fade in active">
+                    <!-- Add a <li> tag for each element in the array dishes. -->
+                    <!-- But only add those elements that  -->
+                    <li class="media" ng-repeat="dish in dishes | filter:filtText">
+                        <div class="media-left media-middle">
+                            <a ui-sref="app.dishdetails({id: dish.id})">
+                                <img class="media-object img-thumbnail"
+                                ng-src={{dish.image}} alt="Uthappizza">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h2 class="media-heading">{{dish.name}}
+                                <span class="label label-danger">{{dish.label}}</span>
+                                <span class="badge">{{dish.price | currency}}</span>
+                            </h2>
+                            <!-- Show this section only if the showDetails var is true (controlled by button above). -->
+                            <p ng-show="showDetails">{{dish.description}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
